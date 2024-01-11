@@ -13,12 +13,14 @@ function HomePage() {
         setSongList((prevData) => [...prevData, newSong]);
     }
 
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const result = await Promise.all([
-                    await axios.get("http://localhost:4000/artists"),
-                    await axios.get("http://localhost:4000/songs")
+                    await axios.get(`${SERVER_URL}/artists`),
+                    await axios.get(`${SERVER_URL}/songs`)
                 ]);
                 setArtistList(result[0].data.results);
                 setSongList(result[1].data.results);

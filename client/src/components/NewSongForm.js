@@ -10,6 +10,7 @@ function NewSongForm({ props }) {
   const updateSongList = props.updateSongList;
   const updateArtistList = props.updateArtistList;
   const [error, setError] = useState(null);
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   const createNewSong = async (e) => {
     e.preventDefault();
@@ -17,8 +18,8 @@ function NewSongForm({ props }) {
     const newSongDetails = { songTitle, artistName };
     try {
       setLoading(true);
-      const newSong = await axios.post('http://localhost:4000/songs', newSongDetails);
-      const newArtistList = await axios.get('http://localhost:4000/artists');
+      const newSong = await axios.post(`${SERVER_URL}/songs`, newSongDetails);
+      const newArtistList = await axios.get(`${SERVER_URL}/artists`);
       updateArtistList(newArtistList.data.results);
       updateSongList(newSong.data);
       setSongTitle('');

@@ -10,10 +10,12 @@ function SongPage() {
     const { songID } = useParams();
     const navigate = useNavigate();
 
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
     useEffect(() => {
         const fetchSongDetails = async () => {
             try {
-                const result = await axios.get(`http://localhost:4000/songs/${songID}`);
+                const result = await axios.get(`${SERVER_URL}/songs/${songID}`);
                 setSongDetails(result.data);
             }
             catch (err) {
